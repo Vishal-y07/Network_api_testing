@@ -1,0 +1,12 @@
+requests~=2.32.3
+pytest~=8.3.5
+pytest-html
+allure-pytest
+PyYAML
+
+urllib3~=2.4.0
+jsonschema~=4.24.0
+
+requests
+
+
