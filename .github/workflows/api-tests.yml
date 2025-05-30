@@ -25,5 +25,5 @@ jobs:
         pip install -r requirements.txt
 
     - name: Run Pytest
-      run: |
-        pytest -v --maxfail=1 --disable-warnings
+
+      run: pytest . -v --maxfail=1 --disable-warnings
