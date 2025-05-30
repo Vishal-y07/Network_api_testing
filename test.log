@@ -1,0 +1,7 @@
+2025-05-29 03:15:40,791 | inventory-tests | INFO | Fetching device inventory for tests.
+2025-05-29 03:36:44,642 | inventory-tests | INFO | Authenticating and fetching device inventory...
+2025-05-29 03:36:48,021 | inventory-tests | INFO | Running test: inventory not empty
+2025-05-29 03:36:48,741 | inventory-tests | INFO | Running test: all devices have required fields
+2025-05-29 03:40:20,913 | inventory-tests | INFO | Authenticating and fetching device inventory...
+2025-05-29 03:40:24,702 | inventory-tests | INFO | Running test: inventory not empty
+2025-05-29 03:40:25,854 | inventory-tests | INFO | Running test: all devices have required fields
