@@ -8,5 +8,4 @@ urllib3~=2.4.0
 jsonschema~=4.24.0
 
 requests
-
-
+pytest-html
