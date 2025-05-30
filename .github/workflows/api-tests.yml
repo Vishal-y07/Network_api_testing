@@ -10,6 +10,11 @@ jobs:
   run-api-tests:
     runs-on: ubuntu-latest
 
+    env:
+      SDWAN_USERNAME: ${{ secrets.SDWAN_USERNAME }}
+      SDWAN_PASSWORD: ${{ secrets.SDWAN_PASSWORD }}
+      SDWAN_BASE_URL: ${{ secrets.SDWAN_BASE_URL }}
+
     steps:
     - name: Checkout repository
       uses: actions/checkout@v3
@@ -23,7 +28,14 @@ jobs:
       run: |
         python -m pip install --upgrade pip
         pip install -r requirements.txt
+        pip install pytest-html  # Optional if already in requirements.txt
 
-    - name: Run Pytest
+    - name: Run Pytest and generate HTML report
+      run: |
+        pytest . --html=report.html --self-contained-html
 
-      run: pytest . -v --maxfail=1 --disable-warnings
+    - name: Upload Pytest HTML Report
+      uses: actions/upload-artifact@v4
+      with:
+        name: pytest-report
+        path: report.html
