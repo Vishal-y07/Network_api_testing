@@ -24,12 +24,6 @@ jobs:
         python -m pip install --upgrade pip
         pip install -r requirements.txt
 
-    - name: Run Pytest and generate HTML report
-      run: |
-        pytest . --html=report.html --self-contained-html
+    - name: Run Pytest
 
-    - name: Upload Pytest HTML Report
-      uses: actions/upload-artifact@v4
-      with:
-        name: pytest-report
-        path: report.html
+      run: pytest . -v --maxfail=1 --disable-warnings
