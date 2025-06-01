@@ -10,11 +10,6 @@ jobs:
   run-api-tests:
     runs-on: ubuntu-latest
 
-    env:
-      SDWAN_USERNAME: ${{ secrets.SDWAN_USERNAME }}
-      SDWAN_PASSWORD: ${{ secrets.SDWAN_PASSWORD }}
-      SDWAN_BASE_URL: ${{ secrets.SDWAN_BASE_URL }}
-
     steps:
     - name: Checkout repository
       uses: actions/checkout@v3
@@ -28,36 +23,20 @@ jobs:
       run: |
         python -m pip install --upgrade pip
         pip install -r requirements.txt
-        pip install pytest-html allure-pytest pytest-json-report
 
     - name: Install Allure CLI
       run: |
-        sudo apt-add-repository ppa:qameta/allure -y
-        sudo apt-get update
-        sudo apt-get install allure -y
+        wget https://github.com/allure-framework/allure2/releases/download/2.27.0/allure-2.27.0.tgz
+        tar -zxvf allure-2.27.0.tgz
+        sudo mv allure-2.27.0 /opt/allure
+        sudo ln -s /opt/allure/bin/allure /usr/bin/allure
+        allure --version
 
-    - name: Run Pytest with all report formats
-      run: |
-        mkdir -p allure-results
-        pytest . \
-          --html=report.html --self-contained-html \
-          --json-report --json-report-file=report.json \
-          --alluredir=allure-results
+    - name: Run Pytest and generate Allure results
+      run: pytest --alluredir=allure-results
 
-    - name: Upload Pytest HTML Report
-      uses: actions/upload-artifact@v4
-      with:
-        name: pytest-html-report
-        path: report.html
-
-    - name: Upload JSON Report
-      uses: actions/upload-artifact@v4
-      with:
-        name: pytest-json-report
-        path: report.json
-
-    - name: Upload Allure Results
-      uses: actions/upload-artifact@v4
+    - name: Upload Allure results
+      uses: actions/upload-artifact@v3
       with:
         name: allure-results
-        path: allure-results
+        path: allure-results/
